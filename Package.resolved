@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "async-network",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zhtut/async-network.git",
+      "state" : {
+        "revision" : "541592a7eff13c9b040a3afd7b217e2c6c04cb90",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "cc76b894169a3c86b71bac10c78a4db6beb7a9ad",
+        "version" : "3.2.0"
+      }
+    },
+    {
+      "identity" : "utilcore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zhtut/UtilCore.git",
+      "state" : {
+        "revision" : "d8b25b0099ff5ed972d567f4e2662cee6f2eb69e",
+        "version" : "1.1.5"
+      }
+    }
+  ],
+  "version" : 2
+}
