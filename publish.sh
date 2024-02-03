@@ -1,7 +1,6 @@
 #!/bin/sh
 
 app_name="dnspod_ddns"
-platform="linux/amd64"
 
 # 这里使用一个中转容器，用于存放代码，每次编译的时候，把新的代码拷进去，
 # 然后再执行构建，可以免去很多编译的时间，然后再把东西拷出来进行安装
@@ -11,7 +10,10 @@ build_new="Dockerfile-build-new"
 build_cache="Dockerfile-build-cache"
 cp_run="Dockerfile-cp-run"
 
-docker_build_command="docker build --platform $platform"
+docker_build_command="docker build --no-cache"
+
+docker pull swift:jammy
+docker pull swift:jammy-slim
 
 if [[ $(docker image ls) =~ $cache_image ]]; then
   echo "已有Cache镜像，使用Cache镜像开始build"
