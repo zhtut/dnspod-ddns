@@ -46,7 +46,7 @@ func loadConfig() throws {
     var configPath = "/config.json"
 #if os(macOS)
     let home = NSHomeDirectory()
-    configPath = home + "/Desktop/thirds/dnspod_ddns/config.json"
+    configPath = home + "/Desktop/thirds/dnspod-ddns/config.json"
 #endif
     let url: URL
 #if os(Linux)

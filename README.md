@@ -42,7 +42,7 @@
 ```
 services:
   ddns:
-    image: shutut/dnspod_ddns:latest
+    image: shutut/dnspod-ddns:latest
     restart: always
     volumes:
 # 这个./config.json需要指向你配置的config.json目录

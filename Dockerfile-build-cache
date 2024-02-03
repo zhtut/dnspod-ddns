@@ -1,7 +1,7 @@
 # ================================
 # Build image
 # ================================
-FROM dnspod_ddns-cache:latest as build
+FROM dnspod-ddns-cache:latest as build
 
 #  docker compose up -d --force-recreate --build
 
