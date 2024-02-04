@@ -8,18 +8,18 @@
 {
   "domainConfigs": [
     {
-        "domain": "baidu.com",
-        "subDomains": [
-            {
-                "name": "@", // 
-                "type": "AAAA", // 
-                "ttl": 600, // 
-                "desc": "" // 
-            }
-        ]
+      "domain": "baidu.com",
+      "subDomains": [
+        {
+          "name": "@",
+          "type": "AAAA",
+          "ttl": 600,
+          "desc": ""
+        }
+      ]
     }
   ],
-  "timeInverval": 60, // 检查更新的时间，
+  "timeInverval": 60,
   "secretKey": "",
   "secretId": "",
   "printInterfaceLog": false
