@@ -1,7 +1,10 @@
 # ================================
 # Build image
 # ================================
-FROM swift:jammy as build
+FROM --platform=$BUILDPLATFORM swift:jammy as build
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM" > /log
 
 # Install OS updates
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -49,7 +52,7 @@ RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w
 # ================================
 # Run image
 # ================================
-FROM ubuntu:jammy
+FROM --platform=$TARGETPLATFORM ubuntu:jammy
 
 # Make sure all system packages are up to date, and install only essential packages.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -60,7 +63,7 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
       ca-certificates \
       tzdata \
 # If your app or its dependencies import FoundationNetworking, also install `libcurl4`.
-      # libcurl4 \
+      libcurl4 \
 # If your app or its dependencies import FoundationXML, also install `libxml2`.
       # libxml2 \
     && rm -r /var/lib/apt/lists/*
