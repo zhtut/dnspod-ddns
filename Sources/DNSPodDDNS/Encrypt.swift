@@ -16,12 +16,14 @@ extension URLRequest {
     
     /// 加密的urlRequest
     /// - Returns: 返回加密后的请求
-    func encrypt() throws -> URLRequest {        
+    func encrypt() throws -> URLRequest {
         let now = Date()
+        let secondsTimestamp = now.secondsTimestamp
+        let today = now.today
         
         var publicHeaders: [String: String] = [
-            "X-TC-Timestamp": "\(now.secondsTimestamp)",
-            "X-TC-Language": "zh-CN",
+            "X-Tc-Timestamp": "\(secondsTimestamp)",
+            "X-Tc-Language": "zh-CN",
             "Host": try requireHost()
         ]
         
@@ -63,11 +65,10 @@ extension URLRequest {
 \(SignedHeaders)
 \(HashedRequestPayload)
 """
-        
         let Algorithm = "TC3-HMAC-SHA256"
-        let RequestTimestamp = now.secondsTimestamp
+        let RequestTimestamp = secondsTimestamp
         let Service = try requireHost().split(separator: ".").first ?? "dnspod"
-        let CredentialScope = "\(now.today)/\(Service)/tc3_request"
+        let CredentialScope = "\(today)/\(Service)/tc3_request"
         let HashedCanonicalRequest = CanonicalRequest.sha256Hash
         let StringToSign =
 """
@@ -78,7 +79,7 @@ extension URLRequest {
 """
         
         let SecretKey = sharedConfig.secretKey
-        let SecretDate = try HMAC_SHA256(key: "TC3" + SecretKey, string: now.today)
+        let SecretDate = try HMAC_SHA256(key: "TC3" + SecretKey, string: today)
         let SecretService = try HMAC_SHA256(hexKey: SecretDate, string: "\(Service)")
         let SecretSigning = try HMAC_SHA256(hexKey: SecretService, string: "tc3_request")
         let Signature = try HMAC_SHA256(hexKey: SecretSigning, string: StringToSign)

@@ -43,10 +43,14 @@ struct Configuration: Codable {
 var sharedConfig: Configuration!
 
 func loadConfig() throws {
-    var configPath = "/config.json"
+#if DEBUG
+    var configPath = "./config1.json"
 #if os(macOS)
     let home = NSHomeDirectory()
-    configPath = home + "/Desktop/thirds/dnspod-ddns/config.json"
+    configPath = home + "/Desktop/thirds/dnspod-ddns/config1.json"
+#endif
+#else
+    var configPath = "/config.json"
 #endif
     let url: URL
 #if os(Linux)

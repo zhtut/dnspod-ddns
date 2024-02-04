@@ -52,11 +52,11 @@ class Client {
                                         params: [String: Any]? = nil,
                                         dataClass: T.Type? = nil) async throws -> T {
         var headers = [
-            "X-TC-Action": action,
-            "X-TC-Version": version,
+            "X-Tc-Action": action,
+            "X-Tc-Version": version,
         ]
         if let region {
-            headers["X-TC-Region"] = region
+            headers["X-Tc-Region"] = region
         }
         let req = Request(path: "",
                           method: .POST,

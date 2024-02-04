@@ -21,6 +21,8 @@ services:
     image: shutut/dnspod_ddns
     restart: always
     container_name: ddns
+    environment:
+      - TZ="Asia/Shanghai"
     tty: true
     volumes:
       - ./config.json:/config.json
