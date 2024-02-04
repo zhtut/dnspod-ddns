@@ -14,7 +14,11 @@ Client.setup()
 var index = 1
 func run() {
     Task {
-        try await CheckTask().run(index: index)
+        do {
+            try await CheckTask().run(index: index)
+        } catch {
+            print("第\(index)次检查失败：\(error)")
+        }
         index += 1
         DispatchQueue.global().asyncAfter(deadline: .now() + sharedConfig.timeInverval) {
             run()
