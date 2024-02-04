@@ -1,4 +1,3 @@
-
 app_name="dnspod-ddns"
-docker_build_command="docker buildx build --no-cache --platform linux/amd64,linux/arm64/v8"
-eval $docker_build_command -t shutut/$app_name --push .
+docker build --platform linux/amd64 -t shutut/$app_name:amd64 --push .
+docker build --platform linux/arm64/v8 -t shutut/$app_name:arm64 --push .

@@ -1,2 +1,7 @@
 .build/
 .swiftpm/
+.idea/
+build.sh
+LICENSE
+README.md
+Dockerfile

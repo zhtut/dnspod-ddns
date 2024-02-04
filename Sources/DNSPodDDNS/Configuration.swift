@@ -52,7 +52,7 @@ func loadConfig() throws {
 #if os(Linux)
     url = URL(fileURLWithPath: configPath)
 #else
-    if #available(macOS 13.0, *) {
+    if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
         url = URL(filePath: configPath)
     } else {
         url = URL(fileURLWithPath: configPath)

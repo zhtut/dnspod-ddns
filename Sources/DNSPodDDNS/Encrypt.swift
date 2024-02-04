@@ -128,7 +128,7 @@ extension URLRequest {
 #if os(Linux)
         query = url?.query ?? ""
 #else
-        if #available(macOS 13.0, *) {
+        if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
             query = url?.query(percentEncoded: false) ?? ""
         } else {
             query = url?.query ?? ""
@@ -143,7 +143,7 @@ extension URLRequest {
 #if os(Linux)
         host = url.host
 #else
-        if #available(macOS 13.0, *) {
+        if #available(macOS 13.0, iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
             host = url.host(percentEncoded: false)
         } else {
             host = url.host
