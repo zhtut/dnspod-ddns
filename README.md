@@ -12,7 +12,7 @@
       "subDomains": [
         {
           "name": "@",
-          "type": "AAAA",
+          "type": "A",
           "ttl": 600,
           "desc": ""
         }
