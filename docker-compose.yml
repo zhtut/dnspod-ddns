@@ -18,7 +18,8 @@ version: '3.9'
 
 services:
   ddns:
-    image: dnspod-ddns:latest
+    image: shutut/dnspod_ddns:arm64
     restart: always
+    container_name: ddns
     volumes:
       - ./config.json:/config.json
