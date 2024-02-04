@@ -1,10 +1,7 @@
 # ================================
 # Build image
 # ================================
-FROM --platform=$BUILDPLATFORM swift:jammy as build
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
-RUN echo "I am running on $BUILDPLATFORM, building for $TARGETPLATFORM" > /log
+FROM swift:jammy as build
 
 # Install OS updates
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
