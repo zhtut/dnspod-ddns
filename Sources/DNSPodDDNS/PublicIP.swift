@@ -18,19 +18,14 @@ class PublicIP {
     
     var getIpv4URLConfigs = [
         [
-            "url": "http://v2ray.press:5000/get_ip",
+            "url": "https://4.ipw.cn/api/ip/myip?json",
             "res": "json",
-            "key": "ip"
+            "key": "IP"
         ],
         [
             "url": "https://www.ipuu.net/ipuu/user/getIP",
             "res": "json",
             "key": "data"
-        ],
-        [
-            "url": "https://4.ipw.cn/api/ip/myip?json",
-            "res": "json",
-            "key": "IP"
         ],
         [
             "url": "https://1.1.1.1/cdn-cgi/trace",
@@ -91,14 +86,14 @@ class PublicIP {
     
     var getIpv6URLConfigs = [
         [
-            "url": "https://v6.myip.la/json",
-            "res": "json",
-            "key": "ip"
-        ],
-        [
             "url": "https://6.ipw.cn/api/ip/myip?json",
             "res": "json",
             "key": "IP"
+        ],
+        [
+            "url": "https://v6.myip.la/json",
+            "res": "json",
+            "key": "ip"
         ],
         [
             "url": "https://[2606:4700:4700::1111]/cdn-cgi/trace",
