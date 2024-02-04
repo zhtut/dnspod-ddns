@@ -1,21 +1,15 @@
 {
   "domainConfigs": [
     {
-        "domain": "baidu.com",
-        "subDomains": [
-            {
-                "name": "@",
-                "type": "AAAA",
-                "ttl": 600,
-                "desc": ""
-            },
-            {
-                "name": "@",
-                "type": "A",
-                "ttl": 600,
-                "desc": ""
-            }
-        ]
+      "domain": "baidu.com",
+      "subDomains": [
+        {
+          "name": "@",
+          "type": "A",
+          "ttl": 600,
+          "desc": ""
+        }
+      ]
     }
   ],
   "timeInverval": 60,
