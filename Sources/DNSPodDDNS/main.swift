@@ -16,7 +16,7 @@ func run() {
     Task {
         try await CheckTask().run(index: index)
         index += 1
-        DispatchQueue.global().asyncAfter(deadline: .now() + 10) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + sharedConfig.timeInverval) {
             run()
         }
     }
@@ -24,4 +24,4 @@ func run() {
 
 run()
 
-RunLoop.current.run(mode: .default, before: Date.distantFuture)
+RunLoop.current.run()

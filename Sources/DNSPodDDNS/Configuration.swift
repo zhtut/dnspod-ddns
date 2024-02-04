@@ -44,10 +44,10 @@ var sharedConfig: Configuration!
 
 func loadConfig() throws {
 #if DEBUG
-    var configPath = "./config1.json"
+    var configPath = "./config.json"
 #if os(macOS)
     let home = NSHomeDirectory()
-    configPath = home + "/Desktop/thirds/dnspod-ddns/config1.json"
+    configPath = home + "/Desktop/thirds/dnspod-ddns/config.json"
 #endif
 #else
     var configPath = "/config.json"
