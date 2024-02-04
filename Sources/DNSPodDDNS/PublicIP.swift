@@ -18,14 +18,14 @@ class PublicIP {
     
     var getIpv4URLConfigs = [
         [
-            "url": "https://4.ipw.cn/api/ip/myip?json",
-            "res": "json",
-            "key": "IP"
-        ],
-        [
             "url": "https://www.ipuu.net/ipuu/user/getIP",
             "res": "json",
             "key": "data"
+        ],
+        [
+            "url": "https://4.ipw.cn/api/ip/myip?json",
+            "res": "json",
+            "key": "IP"
         ],
         [
             "url": "https://1.1.1.1/cdn-cgi/trace",

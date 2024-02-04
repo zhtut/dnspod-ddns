@@ -14,12 +14,6 @@
 # Run migrations: docker-compose run migrate
 #       Stop all: docker-compose down (add -v to wipe db)
 
-#  docker run \
-#  --rm -it \
-#  --volume "$(pwd)/:/src" \
-#  --workdir "/src/" \
-#  swift:jammy
-
 #
 version: '3.9'
 

@@ -1,6 +1,7 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 import Foundation
+import Dispatch
 
 print("开始读取配置")
 
@@ -15,13 +16,12 @@ func run() {
     Task {
         try await CheckTask().run(index: index)
         index += 1
+        DispatchQueue.global().asyncAfter(deadline: .now() + 10) {
+            run()
+        }
     }
 }
 
 run()
 
-let timer = Timer.scheduledTimer(withTimeInterval: sharedConfig.timeInverval, repeats: true) { timer in
-    run()
-}
-RunLoop.current.add(timer, forMode: .common)
-RunLoop.current.run()
+RunLoop.current.run(mode: .default, before: Date.distantFuture)

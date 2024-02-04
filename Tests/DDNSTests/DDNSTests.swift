@@ -6,3 +6,11 @@ final class AppTests: XCTestCase {
         print("开始我的打印")
     }
 }
+
+/*
+  docker run \
+  --rm -it \
+  --volume "$(pwd)/:/src" \
+  --workdir "/src/" \
+  swift:jammy
+  */
