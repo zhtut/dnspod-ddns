@@ -1,15 +1,42 @@
 # ================================
 # Build image
 # ================================
-FROM dnspod-ddns-cache:latest as build
+FROM swift:jammy as build
 
-#  docker compose up -d --force-recreate --build
+# Install OS updates
+RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
+    && apt-get -q update \
+    && apt-get -q dist-upgrade -y \
+    && apt-get install -y libjemalloc-dev
+
+# Set up a build area
+WORKDIR /build
+
+# First just resolve dependencies.
+# This creates a cached layer that can be reused
+# as long as your Package.swift/Package.resolved
+# files do not change.
+COPY ./Package.* ./
+RUN swift package resolve --skip-update \
+        $([ -f ./Package.resolved ] && echo "--force-resolved-versions" || true)
+
+# Copy entire repo into container
+COPY . .
+
+# Build everything, with optimizations, with static linking, and using jemalloc
+# N.B.: The static version of jemalloc is incompatible with the static Swift runtime.
+RUN swift build -c release \
+                --static-swift-stdlib \
+                -Xlinker -ljemalloc
 
 # Switch to the staging area
 WORKDIR /staging
 
 # Copy main executable to staging area
 RUN cp "$(swift build --package-path /build -c release --show-bin-path)/DNSPodDDNS" ./
+
+# Copy static swift backtracer binary to staging area
+RUN cp "/usr/libexec/swift/linux/swift-backtrace-static" ./
 
 # Copy resources bundled by SPM to staging area
 RUN find -L "$(swift build --package-path /build -c release --show-bin-path)/" -regex '.*\.resources$' -exec cp -Ra {} ./ \;
@@ -22,36 +49,36 @@ RUN [ -d /build/Resources ] && { mv /build/Resources ./Resources && chmod -R a-w
 # ================================
 # Run image
 # ================================
-FROM swift:jammy-slim
+FROM ubuntu:jammy
 
 # Make sure all system packages are up to date, and install only essential packages.
 RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
     && apt-get -q dist-upgrade -y \
     && apt-get -q install -y \
+      libjemalloc2 \
       ca-certificates \
       tzdata \
-      openssl libssl-dev \
 # If your app or its dependencies import FoundationNetworking, also install `libcurl4`.
-      libcurl4 \
+      # libcurl4 \
 # If your app or its dependencies import FoundationXML, also install `libxml2`.
       # libxml2 \
     && rm -r /var/lib/apt/lists/*
 
-# Create a trader user and group with /app as its home directory
-RUN useradd --user-group --create-home --system --skel /dev/null --home-dir /app trader
+# Create a ddns user and group with /app as its home directory
+RUN useradd --user-group --create-home --system --skel /dev/null --home-dir /app ddns
 
 # Switch to the new home directory
 WORKDIR /app
 
 # Copy built executable and any staged resources from builder
-COPY --from=build --chown=trader:trader /staging /app
+COPY --from=build --chown=ddns:ddns /staging /app
 
 # Provide configuration needed by the built-in crash reporter and some sensible default behaviors.
-ENV SWIFT_ROOT=/usr SWIFT_BACKTRACE=enable=yes,sanitize=yes,threads=all,images=all,interactive=no
+ENV SWIFT_BACKTRACE=enable=yes,sanitize=yes,threads=all,images=all,interactive=no,swift-backtrace=./swift-backtrace-static
 
-# Ensure all further commands run as the trader user
-USER trader:trader
+# Ensure all further commands run as the ddns user
+USER ddns:ddns
 
-# Start the trader service when the image is run, default to listening on 8080 in production environment
+# Start the ddns service when the image is run, default to listening on 8080 in production environment
 ENTRYPOINT ["./DNSPodDDNS"]

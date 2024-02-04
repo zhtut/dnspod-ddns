@@ -10,14 +10,14 @@ build_new="Dockerfile-build-new"
 build_cache="Dockerfile-build-cache"
 cp_run="Dockerfile-cp-run"
 
-docker_build_command="docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7"
+docker_build_command="docker buildx build --no-cache --platform linux/arm/v8"
 
 #docker pull swift:jammy
 #docker pull swift:jammy-slim
 
 if [[ $(docker image ls) =~ $cache_image ]]; then
   echo "已有Cache镜像，使用Cache镜像开始build"
-  $docker_build_command -f $build_cache -t $cache_image .
+  $docker_build_command -f $build_cache -t $cache_image --load .
   if [[ $? != 0 ]]; then
     echo "编译失败"
     exit 1
@@ -25,7 +25,7 @@ if [[ $(docker image ls) =~ $cache_image ]]; then
   echo "编译成功，开始部署"
 else
   echo "还没有Cache镜像，先编译Cache镜像"
-  $docker_build_command -f $build_new -t $cache_image .
+  $docker_build_command -f $build_new -t $cache_image --load .
   if [[ $? != 0 ]]; then
     echo "编译Cache失败"
     exit 1
