@@ -40,10 +40,14 @@
 | printInterfaceLog  | 是否打印接口日志 |
 ## 配置docker-compose.yml
 ```
+version: '3.9'
+
 services:
   ddns:
-    image: shutut/dnspod-ddns:latest
+    image: shutut/dnspod_ddns
     restart: always
+    container_name: ddns
+    tty: true
     volumes:
 # 这个./config.json需要指向你配置的config.json目录
       - ./config.json:/config.json
