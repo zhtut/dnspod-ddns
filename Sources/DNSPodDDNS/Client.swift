@@ -42,7 +42,12 @@ class Client {
     static func setup() {
         Networking.shared.baseURL = baseURL
         Networking.shared.encryptHandler = { urlRequest in
-            return try urlRequest.encrypt()
+            if let host = try? urlRequest.requireHost(),
+                host.contains("tencentcloudapi.com") {
+                // 腾讯的接口才加密
+                return try urlRequest.encrypt()
+            }
+            return urlRequest
         }
     }
     
