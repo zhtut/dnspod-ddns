@@ -54,7 +54,7 @@ class CheckTask {
     }
     
     func run(index: Int) async throws {
-        print("开始执行第\(index)次任务，现在时间: \(Date().desc)")
+        print("----\n开始执行第\(index)次任务，现在时间: \(Date().desc)----")
         
         sharedConfig.domainConfigs
             .forEach { domainConfig in

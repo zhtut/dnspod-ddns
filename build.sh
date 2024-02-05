@@ -9,5 +9,6 @@ docker buildx build -t $name/$app_name:$arch --push .
 # 所以这里需要分开构建，然后再通过manifest合到一起
 docker manifest create \
 $name/$app_name:latest \
---amend $name/$app_name:amd64 \
---amend $name/$app_name:arm64
+-a $name/$app_name:amd64 \
+-a $name/$app_name:arm64
+docker manifest push $name/$app_name:latest

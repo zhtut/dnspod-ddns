@@ -19,12 +19,13 @@ version: '3.9'
 
 services:
   ddns:
-    image: shutut/dnspod_ddns
+    image: shutut/dnspod_ddns:arm64
     build: .
     restart: always
     container_name: ddns
     environment:
       - TZ="Asia/Shanghai"
     tty: true
+    network_mode: host
     volumes:
       - ./config.json:/config.json
