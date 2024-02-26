@@ -112,6 +112,11 @@ class PublicIP {
 extension String {
     /// 判断一个string是不是一个有效的ipv4地址
     public var isValidIPv4Address: Bool {
+        if let wrongIpv4s = sharedConfig.wrongIpv4s, wrongIpv4s.contains(self) {
+            // 如果配置的错误ip包含了，则不是一个有效的ip
+            return false
+        }
+        
         // 分割字符串
         let parts = self.split(separator: ".")
         

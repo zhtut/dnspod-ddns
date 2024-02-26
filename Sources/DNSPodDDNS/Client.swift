@@ -39,7 +39,15 @@ class Client {
         case businessError(code: String, msg: String)
     }
     
+    static var session: URLSession = {
+        let config = URLSessionConfiguration.default
+        config.connectionProxyDictionary = [:]
+        let session = URLSession(configuration: config)
+        return session
+    }()
+    
     static func setup() {
+        Networking.shared.session = session
         Networking.shared.baseURL = baseURL
         Networking.shared.encryptHandler = { urlRequest in
             if let host = try? urlRequest.requireHost(),

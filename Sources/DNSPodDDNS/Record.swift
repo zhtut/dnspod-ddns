@@ -66,7 +66,7 @@ enum RecordError: Error {
 
 class RecordManager {
     /// 获取某个域名的子域名的ip
-    static func getRecord(_ domain: String, type: SubDomainConfig.`Type`, config: SubDomainConfig) async throws -> Record {
+    static func getRecords(_ domain: String, type: SubDomainConfig.`Type`, config: SubDomainConfig) async throws -> [Record] {
         let params = [
             "Domain": domain,
             "Subdomain": config.name ?? "@",
@@ -76,10 +76,7 @@ class RecordManager {
                                      version: "2021-03-23",
                                      params: params,
                                      dataClass: GetRecordListResponse.self)
-        if let first = res.RecordList.first {
-            return first
-        }
-        throw RecordError.notFoundRecord(params)
+        return res.RecordList
     }
     
     /// 设置一条记录

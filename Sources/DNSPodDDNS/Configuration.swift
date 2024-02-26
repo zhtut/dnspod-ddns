@@ -38,6 +38,8 @@ struct Configuration: Codable {
     var timeInverval: TimeInterval
     /// 打印接口日志，默认为no
     var printInterfaceLog: Bool = false
+    /// 错误的ip
+    var wrongIpv4s: [String]?
 }
 
 var sharedConfig: Configuration!

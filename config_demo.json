@@ -15,5 +15,6 @@
   "timeInverval": 60,
   "secretKey": "",
   "secretId": "",
-  "printInterfaceLog": false
+  "printInterfaceLog": false,
+  "wrongIpv4s": []
 }

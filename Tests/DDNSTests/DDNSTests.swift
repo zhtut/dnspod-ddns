@@ -8,10 +8,5 @@ final class AppTests: XCTestCase {
 }
 
 /*
- docker run \
- --rm -it \
- --volume "$(pwd)/:/src" \
- --workdir "/src/" \
- --platform linux/amd64 \
- swift:jammy
+ docker run -it -v "$(pwd)/:/src" -w "/src/" --name 'debug' swift:jammy
   */

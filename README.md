@@ -22,7 +22,8 @@
   "timeInverval": 60,
   "secretKey": "",
   "secretId": "",
-  "printInterfaceLog": false
+  "printInterfaceLog": false,
+  "wrongIpv4s": []
 }
 ```
 
@@ -38,6 +39,7 @@
 | secretKey  | 腾讯云api密钥,[在这申请](https://console.dnspod.cn/account/token/apikey)，不是dnsPodToken, dnsPodToken那套接口后续会下架 |
 | secretId  | 腾讯云api密钥Id,[在这申请](https://console.dnspod.cn/account/token/apikey)，不是dnsPodToken, dnsPodToken那套接口后续会下架 |
 | printInterfaceLog  | 是否打印接口日志 |
+| wrongIpv4s  | 获取到的错误的ipv4地址，常见于使用了代理，然后获取到了代理的ip，这里可以去除，会尝试使用别的地址去获取正确的ip |
 ## 配置docker-compose.yml
 ```
 version: '3.9'
