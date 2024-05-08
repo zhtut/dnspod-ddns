@@ -42,11 +42,10 @@
 | wrongIpv4s  | 获取到的错误的ipv4地址，常见于使用了代理，然后获取到了代理的ip，这里可以去除，会尝试使用别的地址去获取正确的ip |
 ## 配置docker-compose.yml
 ```
-version: '3.9'
 
 services:
   ddns:
-    image: shutut/dnspod_ddns
+    image: shutut/dnspod_ddns:amd64
     restart: always
     container_name: ddns
     tty: true
